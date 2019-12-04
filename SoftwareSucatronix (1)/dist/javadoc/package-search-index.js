@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"softwaresucatronix.bean"},{"l":"softwaresucatronix.dal"},{"l":"softwaresucatronix.interfacegrafica"},{"l":"softwaresucatronix.interfaces"}]

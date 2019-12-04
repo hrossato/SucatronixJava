@@ -22,15 +22,59 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
         this.funcionarioLogado = funcionario;
         initComponents();
         switch (this.funcionarioLogado.getTipo()) {
+            case "SUPERUSER":
+                menCad.setEnabled(true);
+                jMenuItem2.setEnabled(true);
+                jMenu2.setEnabled(true);
+                jMenuItem4.setEnabled(true);
+                jMenuItem6.setEnabled(true);
+                jMenu4.setEnabled(true);
+                jMenuItem7.setEnabled(true);
+                jMenuItem14.setEnabled(true);
+                jMenuItem3.setEnabled(true);
+                jMenu3.setEnabled(true);
+                jMenuItem5.setEnabled(true);
+                jMenu4.setEnabled(true);
+                jMenuItem7.setEnabled(true);
+                jMenuItem14.setEnabled(true);
+                jMenu3.setEnabled(true);
+                jMenuItem5.setEnabled(true);
+                jMenuItem13.setEnabled(true);
+                jMenuItem11.setEnabled(true);
+                jMenuItem10.setEnabled(true);
+                jMenuItem12.setEnabled(true);
+                menCad.setEnabled(true);
+                jMenuItem9.setEnabled(true);
+                jMenu4.setEnabled(true);
+                jMenuItem7.setEnabled(true);
+                jMenuItem14.setEnabled(true);
+                jMenuItem3.setEnabled(true);
+                menCad.setEnabled(true);
+                jMenuItem8.setEnabled(true);
+                jMenu3.setEnabled(true);
+                jMenuItem5.setEnabled(true);
+                jMenuItem1.setEnabled(true);
+                jMenuItem10.setEnabled(true);
+                jMenuItem12.setEnabled(true);
+                jMenu4.setEnabled(true);
+                jMenuItem3.setEnabled(true);
+                jMenu2.setEnabled(true);
+                jMenuItem15.setEnabled(true);
+                break;
             case "ADMINISTRADOR":
                 menCad.setEnabled(true);
                 jMenuItem2.setEnabled(true);
                 jMenu2.setEnabled(true);
                 jMenuItem4.setEnabled(true);
+                jMenuItem6.setEnabled(true);
                 jMenu4.setEnabled(true);
                 jMenuItem7.setEnabled(true);
                 jMenuItem14.setEnabled(true);
                 jMenuItem3.setEnabled(true);
+                menCad.setEnabled(true);
+                jMenuItem2.setEnabled(true);
+                jMenu2.setEnabled(true);
+                jMenuItem4.setEnabled(true);
                 break;
             case "TÉCNICO":
                 jMenu3.setEnabled(true);
@@ -69,6 +113,8 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
                 jMenuItem12.setEnabled(true);
                 jMenu4.setEnabled(true);
                 jMenuItem3.setEnabled(true);
+                jMenu2.setEnabled(true);
+                jMenuItem15.setEnabled(true);
                 break;
         }
     }
@@ -91,6 +137,7 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -172,6 +219,15 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
+
+        jMenuItem15.setText("Fornecedores");
+        jMenuItem15.setEnabled(false);
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem15);
 
         jMenuBar1.add(jMenu2);
 
@@ -383,6 +439,13 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
         Desktop.add(venda);  
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        Desktop.removeAll();
+        TelaConsultaFornecedores fornecedor= new TelaConsultaFornecedores();
+        fornecedor.setVisible(true);
+        Desktop.add(fornecedor); 
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,6 +493,7 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
