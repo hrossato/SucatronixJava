@@ -205,7 +205,36 @@ public class Venda implements InterfaceVenda {
     @Override
     public List<Venda> readAll() {
         try (Connection connection = ModuloConexao.conector()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT id, cliente, data, funcionario, situacao FROM Venda");
+            PreparedStatement statement = connection.prepareStatement("SELECT id, cliente, data, funcionario, situacao FROM Venda WHERE situacao <> 'Em análise'");
+            ResultSet rs = statement.executeQuery();
+            ProdutoVenda produtoVenda = new ProdutoVenda();
+            List<Venda> vendas = new ArrayList<>();
+            while (rs.next()) {
+                Venda venda = new Venda();
+                venda.idVenda = rs.getInt("id");
+                venda.dataVenda = rs.getDate("data");
+                venda.situacaoVenda = rs.getString("situacao");
+                venda.clienteVenda = new Cliente();
+                venda.clienteVenda.setIdCliente(rs.getInt("cliente"));
+                venda.clienteVenda.read();
+                venda.funcionarioVenda = new Funcionario();
+                venda.funcionarioVenda.setIdFuncionario(rs.getInt("funcionario"));
+                venda.funcionarioVenda.read();
+                produtoVenda.setVenda(venda);
+                venda.produtosVenda = produtoVenda.readAllByVenda();
+                vendas.add(venda);
+            }
+            return vendas;
+        } catch (SQLException x) {
+
+        }
+        return new ArrayList<>();
+    }
+    
+    @Override
+    public List<Venda> readAllOrcamento() {
+        try (Connection connection = ModuloConexao.conector()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT id, cliente, data, funcionario, situacao FROM Venda WHERE situacao = 'Em análise'");
             ResultSet rs = statement.executeQuery();
             ProdutoVenda produtoVenda = new ProdutoVenda();
             List<Venda> vendas = new ArrayList<>();

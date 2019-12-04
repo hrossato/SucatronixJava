@@ -260,8 +260,7 @@ public class Fornecedor implements InterfaceFornecedor {
     @Override
     public List<Fornecedor> readAll() {
         try (Connection connection = ModuloConexao.conector()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT id, nome, email, telefone, cep, rua, numero, complemento, bairro FROM Fornecedor WHERE id = ?");
-            statement.setInt(1, this.idFornecedor);
+            PreparedStatement statement = connection.prepareStatement("SELECT id, nome, email, telefone, cep, rua, numero, complemento, bairro FROM Fornecedor");
             ResultSet rs = statement.executeQuery();
             List<Fornecedor> fornecedores = new ArrayList<>();
             while (rs.next()) {
@@ -279,7 +278,7 @@ public class Fornecedor implements InterfaceFornecedor {
             }
             return fornecedores;
         } catch (SQLException x) {
-
+            System.err.println(x);
         }
         return new ArrayList<>();
     }
@@ -348,6 +347,10 @@ public class Fornecedor implements InterfaceFornecedor {
         }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return idFornecedor + " - " + nomeFornecedor;
+    }
     
 }

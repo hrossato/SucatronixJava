@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -149,14 +150,21 @@ public class Pedido implements InterfacePedido {
     public void create() {
         try (Connection connection = ModuloConexao.conector()) {
             connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Pedido(id, fornecedor, data, funcionario, situacao) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Pedido(id, fornecedor, data, funcionario, situacao) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, this.idPedido);
             statement.setInt(2, this.fornecedorPedido.getIdFornecedor());
             statement.setDate(3, new java.sql.Date(this.dataPedido.getTime()));
             statement.setInt(4, this.funcionarioPedido.getId());
             statement.setString(5, this.situacaoPedido);
             statement.executeUpdate();
-            this.produtosPedido.forEach((ProdutoPedido item) -> item.create());
+            connection.commit();
+            ResultSet rs = statement.getGeneratedKeys();
+            rs.next();
+            this.setIdPedido(Long.valueOf(rs.getLong(1)).intValue());
+            this.produtosPedido.forEach((ProdutoPedido item) -> {
+                item.setPedido(this);
+                item.create();
+            });
             connection.commit();
         } catch (SQLException x) {
             

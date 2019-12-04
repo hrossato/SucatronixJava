@@ -42,6 +42,22 @@ public interface InterfaceFuncionario {
     public void setCepFuncionario(String cep);
 
     public String getCepFuncionario();
+    
+    public void setRuaFuncionario(String rua);
+
+    public String getRuaFuncionario();
+
+    public void setNumeroFuncionario(String numero);
+
+    public String getNumeroFuncionario();
+    
+    public void setComplementoFuncionario(String complemento);
+
+    public String getComplementoFuncionario();
+
+    public void setBairroFuncionario(String bairro);
+
+    public String getBairroFuncionario();
 
     public void setSenhaFuncionario(String senha);
 

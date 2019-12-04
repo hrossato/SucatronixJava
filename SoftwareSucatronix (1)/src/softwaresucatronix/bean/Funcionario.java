@@ -191,6 +191,83 @@ public class Funcionario implements InterfaceFuncionario {
     public String getCepFuncionario() {
         return this.cepFuncionario;
     }
+    
+    /**
+     *
+     * @param rua
+     */
+    @Override
+    public void setRuaFuncionario(String rua) {
+        if (rua.isEmpty()) {
+            System.out.println("Este campo deve ser preenchido");
+        } else {
+            this.ruaFuncionario = rua;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getRuaFuncionario() {
+        return this.ruaFuncionario;
+    }
+
+    /**
+     *
+     * @param numero
+     */
+    @Override
+    public void setNumeroFuncionario(String numero) {
+        if (numero.isEmpty()) {
+            System.out.println("Este campo deve ser preenchido");
+        } else {
+            this.numeroFuncionario = numero;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getNumeroFuncionario() {
+        return this.numeroFuncionario;
+    }
+
+    /**
+     *
+     * @param bairro
+     */
+    @Override
+    public void setBairroFuncionario(String bairro) {
+        if (bairro.isEmpty()) {
+            System.out.println("Este campo deve ser preenchido");
+        } else {
+            this.bairroFuncionario = bairro;
+        }
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getBairroFuncionario() {
+        return this.bairroFuncionario;
+    }
+    
+    @Override
+    public void setComplementoFuncionario(String complemento) {
+        this.complementoFuncionario = complemento;
+    }
+
+    @Override
+    public String getComplementoFuncionario() {
+        return this.complementoFuncionario;
+    }
 
     /**
      *
@@ -273,7 +350,7 @@ public class Funcionario implements InterfaceFuncionario {
             statement.setString(14, this.tipoFuncionario);
             statement.executeUpdate();
         } catch (SQLException x) {
-
+            
         }
     }
 

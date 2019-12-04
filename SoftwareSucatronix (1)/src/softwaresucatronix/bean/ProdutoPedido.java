@@ -102,7 +102,7 @@ public class ProdutoPedido implements InterfaceProdutoPedido {
             statement.setInt(3, this.pedido.getIdPedido());
             statement.executeUpdate();
         } catch (SQLException x) {
-
+            System.err.println(x);
         }
     }
 

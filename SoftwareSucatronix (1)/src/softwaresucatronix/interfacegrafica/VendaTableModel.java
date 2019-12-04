@@ -25,9 +25,13 @@ public class VendaTableModel extends AbstractTableModel {
         this.vendas = new ArrayList<>();
     }
     
-    public VendaTableModel(boolean fetch) {
+    public VendaTableModel(boolean fetch, boolean isVenda) {
         if (fetch) {
-            this.vendas = new Venda().readAll();
+            if (isVenda) {
+                this.vendas = new Venda().readAll();
+            } else {
+                this.vendas = new Venda().readAllOrcamento();
+            }
         } else {
             this.vendas = new ArrayList<>();
         }
@@ -59,6 +63,36 @@ public class VendaTableModel extends AbstractTableModel {
         this.fireTableRowsDeleted(0, this.vendas.size() + 1);
     }
     
+    public void promoveParaVenda(Venda venda) {
+        venda.setSituacaoVenda("Em produção");
+        venda.update();
+        this.vendas.remove(venda);
+        this.fireTableRowsDeleted(0, this.vendas.size() + 1);
+    }
+    
+    public void avancarSituacao(Venda venda) {
+        if (!venda.getSituacaoVenda().equals("Entregue")) {
+            switch (venda.getSituacaoVenda()) {
+                case "Em produção":
+                    venda.setSituacaoVenda("Pronta para envio");
+                    break;
+                case "Pronta para envio":
+                    venda.setSituacaoVenda("Enviada");
+                    break;
+                case "Enviada":
+                    venda.setSituacaoVenda("Entregue");
+                    break;
+                default:
+                    return;
+            }
+            venda.update();
+            if (this.vendas.indexOf(venda) > -1) {
+                this.vendas.set(this.vendas.indexOf(venda), venda);
+                this.fireTableCellUpdated(this.vendas.indexOf(venda), 3);
+            }
+        }
+    }
+    
     public void clearModel() {
         this.vendas.clear();
         this.fireTableRowsDeleted(0, 0);
@@ -78,6 +112,8 @@ public class VendaTableModel extends AbstractTableModel {
             case 2:
                 return "Data";
             case 3:
+                return "Situação";
+            case 4:
                 return "Valor total";
             default:
                 return "";
@@ -91,7 +127,7 @@ public class VendaTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -105,6 +141,8 @@ public class VendaTableModel extends AbstractTableModel {
             case 2:
                 return new SimpleDateFormat("dd/MM/yyyy").format(venda.getDataVenda());
             case 3:
+                return venda.getSituacaoVenda();
+            case 4:
                 return new DecimalFormat("R$ #,##0.00").format(venda.getProdutosVenda()
                         .stream().mapToDouble((item) -> 
                             item.getQuantidade() * item.getProduto().getPrecoProduto()

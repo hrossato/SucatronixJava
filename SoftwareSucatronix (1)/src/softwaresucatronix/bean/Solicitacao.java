@@ -1,5 +1,6 @@
 package softwaresucatronix.bean;
 
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -122,13 +123,20 @@ public class Solicitacao implements InterfaceSolicitacao {
     public void create() {
         try (Connection connection = ModuloConexao.conector()) {
             connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Solicitacao(id, data, funcionario, aprovada) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Solicitacao(id, data, funcionario, aprovada) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, this.idSolicitacao);
             statement.setDate(2, new java.sql.Date(this.dataSolicitacao.getTime()));
             statement.setInt(3, this.funcionarioSolicitacao.getId());
             statement.setBoolean(4, this.aprovada);
             statement.executeUpdate();
-            this.produtosSolicitacao.forEach((ProdutoSolicitacao item) -> item.create());
+            connection.commit();
+            ResultSet rs = statement.getGeneratedKeys();
+            rs.next();
+            this.setIdSolicitacao(Long.valueOf(rs.getLong(1)).intValue());
+            this.produtosSolicitacao.forEach((ProdutoSolicitacao item) -> {
+                item.setSolicitacao(this);
+                item.create();
+            });
             connection.commit();
         } catch (SQLException x) {
 

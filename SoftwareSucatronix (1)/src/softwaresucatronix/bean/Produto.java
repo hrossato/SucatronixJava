@@ -55,7 +55,7 @@ public class Produto implements InterfaceProduto {
         if (estoqueQtd >= 0) {
             this.estoqueAtualProduto = estoqueQtd;
         } else {
-            System.out.println("Este campo deve ser preenchido com um numero maior ou igual a 0 válido");
+            this.estoqueAtualProduto = 0;
         }
 
     }

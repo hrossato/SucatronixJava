@@ -57,6 +57,7 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(600, 460));
 
@@ -98,6 +99,8 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
 
         jComboBox3.setModel(clienteModel);
 
+        jTextField1.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +117,9 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addGap(14, 14, 14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lbValor, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
@@ -154,9 +159,11 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(16, 16, 16)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lbValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -176,6 +183,14 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
             produtoVenda.setProduto((Produto) this.produtoModel.getSelectedItem());
             produtoVenda.setQuantidade(1f);
             this.produtoVendaModel.addProdutoVenda(produtoVenda);
+            jTextField1.setText("R$ " + 
+                this.produtoVendaModel.getModel().stream().map((ProdutoVenda item) -> {
+                    return item.getQuantidade() * item.getProduto().getPrecoProduto();
+                }).reduce(0f, (Float acc, Float item) -> {
+                    acc += item;
+                    return acc;
+                })
+            );
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -183,6 +198,14 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
         int selectedRow = this.jTable1.getSelectedRow();
         if (selectedRow >= 0) {
             this.produtoVendaModel.removeProdutoVenda(this.produtoVendaModel.getModel().get(selectedRow));
+            jTextField1.setText("R$ " + 
+                this.produtoVendaModel.getModel().stream().map((ProdutoVenda item) -> {
+                    return item.getQuantidade() * item.getProduto().getPrecoProduto();
+                }).reduce(0f, (Float acc, Float item) -> {
+                    acc += item;
+                    return acc;
+                })
+            );
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -192,7 +215,7 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
             venda.setClienteVenda((Cliente) this.jComboBox3.getSelectedItem());
             venda.setFuncionarioVenda(this.funcionario);
             venda.setDataVenda(new Date());
-            venda.setSituacaoVenda("Pendente");
+            venda.setSituacaoVenda("Em análise");
             venda.setProdutosVenda(this.produtoVendaModel.getModel());
             venda.create();
             this.dispose();
@@ -213,6 +236,7 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbValor;
     // End of variables declaration//GEN-END:variables
 }

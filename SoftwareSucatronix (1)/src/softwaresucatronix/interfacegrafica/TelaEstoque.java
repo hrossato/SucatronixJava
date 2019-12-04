@@ -42,6 +42,11 @@ public class TelaEstoque extends javax.swing.JInternalFrame {
         jLabel1.setText("Estoque Atual:");
 
         jButton1.setText("Aumentar Unidade");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Remover Item Selecionado");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +56,11 @@ public class TelaEstoque extends javax.swing.JInternalFrame {
         });
 
         jButton3.setText("Reduzir Unidade");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(model);
         jScrollPane1.setViewportView(jTable1);
@@ -96,6 +106,20 @@ public class TelaEstoque extends javax.swing.JInternalFrame {
             this.model.removeProduto(this.model.getModel().get(selectedRow));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int selectedRow = this.jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            this.model.aumentaProduto(this.model.getModel().get(selectedRow));
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = this.jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            this.model.reduzProduto(this.model.getModel().get(selectedRow));
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

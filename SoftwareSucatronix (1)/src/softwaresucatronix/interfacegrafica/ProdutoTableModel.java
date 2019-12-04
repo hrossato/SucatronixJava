@@ -54,6 +54,24 @@ public class ProdutoTableModel extends AbstractTableModel {
         this.fireTableRowsDeleted(0, this.produtos.size() + 1);
     }
     
+    public void aumentaProduto(Produto produto) {
+        produto.setEstoqueAtualProduto(produto.getEstoqueAtualProduto() + 1);
+        produto.update();
+        if (this.produtos.indexOf(produto) > -1) {
+            this.produtos.set(this.produtos.indexOf(produto), produto);
+            this.fireTableCellUpdated(this.produtos.indexOf(produto), 1);
+        }
+    }
+    
+    public void reduzProduto(Produto produto) {
+        produto.setEstoqueAtualProduto(produto.getEstoqueAtualProduto() - 1);
+        produto.update();
+        if (this.produtos.indexOf(produto) > -1) {
+            this.produtos.set(this.produtos.indexOf(produto), produto);
+            this.fireTableCellUpdated(this.produtos.indexOf(produto), 1);
+        }
+    }
+    
     public void clearModel() {
         this.produtos.clear();
         this.fireTableRowsDeleted(0, 0);

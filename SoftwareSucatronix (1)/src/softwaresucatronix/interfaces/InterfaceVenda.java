@@ -48,6 +48,8 @@ public interface InterfaceVenda {
     public void read();
 
     public List<Venda> readAll();
+    
+    public List<Venda> readAllOrcamento();
 
     public void update();
 
