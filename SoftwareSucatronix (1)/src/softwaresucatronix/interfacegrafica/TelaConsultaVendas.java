@@ -5,6 +5,8 @@
  */
 package softwaresucatronix.interfacegrafica;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author T-Gamer
@@ -12,12 +14,14 @@ package softwaresucatronix.interfacegrafica;
 public class TelaConsultaVendas extends javax.swing.JInternalFrame {
 
     private final VendaTableModel model;
+    private JDesktopPane Desktop;
     private boolean isVenda;
     
     /**
      * Creates new form TelaConsultaVendas
      */
-    public TelaConsultaVendas(boolean isVenda) {
+    public TelaConsultaVendas(boolean isVenda, JDesktopPane Desktop) {
+        this.Desktop = Desktop;
         model = new VendaTableModel(true, isVenda);
         this.isVenda = isVenda;
         initComponents();
@@ -40,6 +44,7 @@ public class TelaConsultaVendas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 460));
 
@@ -55,10 +60,17 @@ public class TelaConsultaVendas extends javax.swing.JInternalFrame {
         jTable1.setModel(model);
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("Remover Venda");
+        jButton2.setText("Ver detalhes da venda");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Remover Venda");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -71,13 +83,16 @@ public class TelaConsultaVendas extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(460, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,7 +105,8 @@ public class TelaConsultaVendas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -111,14 +127,25 @@ public class TelaConsultaVendas extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int selectedRow = this.jTable1.getSelectedRow();
         if (selectedRow >= 0) {
-            this.model.removeVenda(this.model.getModel().get(selectedRow));
+            Desktop.removeAll();
+            TelaNovaVenda t = new TelaNovaVenda(this.model.getModel().get(selectedRow));
+            t.setVisible(true);
+            Desktop.add(t); 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = this.jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            this.model.removeVenda(this.model.getModel().get(selectedRow));
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

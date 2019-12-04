@@ -34,6 +34,29 @@ public class TelaNovaVenda extends javax.swing.JInternalFrame {
         this.produtoVendaModel = new ProdutoVendaTableModel();
         initComponents();
     }
+    
+    public TelaNovaVenda(Venda venda) {
+        this.funcionario = new Funcionario();
+        this.produtoModel = new ProdutoComboBoxModel(false);
+        this.clienteModel = new ClienteComboBoxModel();
+        this.clienteModel.setSelectedItem(venda.getClienteVenda());
+        this.produtoVendaModel = new ProdutoVendaTableModel(venda.getProdutosVenda());
+        initComponents();
+        this.jTextField1.setText("R$ " + 
+            this.produtoVendaModel.getModel().stream().map((ProdutoVenda item) -> {
+                return item.getQuantidade() * item.getProduto().getPrecoProduto();
+            }).reduce(0f, (Float acc, Float item) -> {
+                acc += item;
+                return acc;
+            })
+        );
+        this.jComboBox3.setEnabled(false);
+        this.jComboBox2.setEnabled(false);
+        this.jComboBox1.setEnabled(false);
+        this.jButton1.setEnabled(false);
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

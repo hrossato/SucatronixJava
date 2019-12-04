@@ -34,6 +34,18 @@ public class TelaNovaSolicitacao extends javax.swing.JInternalFrame {
         this.produtoSolicitacaoModel = new ProdutoSolicitacaoTableModel();
         initComponents();
     }
+    
+    public TelaNovaSolicitacao(Solicitacao solicitacao) {
+        this.funcionario = new Funcionario();
+        this.produtoModel = new ProdutoComboBoxModel(true);
+        this.clienteModel = new ClienteComboBoxModel();
+        this.produtoSolicitacaoModel = new ProdutoSolicitacaoTableModel(solicitacao.getProdutosSolicitacao());
+        initComponents();
+        this.jComboBox2.setEnabled(false);
+        this.jButton1.setEnabled(false);
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

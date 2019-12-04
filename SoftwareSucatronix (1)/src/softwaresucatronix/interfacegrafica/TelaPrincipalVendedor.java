@@ -364,7 +364,7 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Desktop.removeAll();
-        TelaConsultaVendas venda = new TelaConsultaVendas(true);
+        TelaConsultaVendas venda = new TelaConsultaVendas(true, Desktop);
         venda.setVisible(true);
         Desktop.add(venda);  
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -420,21 +420,21 @@ public class TelaPrincipalVendedor extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         Desktop.removeAll();
-        TelaConsultaSolicitacoes solicitacao = new TelaConsultaSolicitacoes();
+        TelaConsultaSolicitacoes solicitacao = new TelaConsultaSolicitacoes(Desktop);
         solicitacao.setVisible(true);
         Desktop.add(solicitacao);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         Desktop.removeAll();
-        TelaConsultaPedidos pedido = new TelaConsultaPedidos();
+        TelaConsultaPedidos pedido = new TelaConsultaPedidos(Desktop);
         pedido.setVisible(true);
         Desktop.add(pedido);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         Desktop.removeAll();
-        TelaConsultaVendas venda = new TelaConsultaVendas(false);
+        TelaConsultaVendas venda = new TelaConsultaVendas(false, Desktop);
         venda.setVisible(true);
         Desktop.add(venda);  
     }//GEN-LAST:event_jMenuItem14ActionPerformed

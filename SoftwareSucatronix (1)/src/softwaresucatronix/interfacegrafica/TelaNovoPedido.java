@@ -35,6 +35,28 @@ public class TelaNovoPedido extends javax.swing.JInternalFrame {
         this.produtoPedidoModel = new ProdutoPedidoTableModel();
         initComponents();
     }
+    
+    public TelaNovoPedido(Pedido pedido) {
+        this.funcionario = new Funcionario();
+        this.produtoModel = new ProdutoComboBoxModel(true);
+        this.fornecedorModel = new FornecedorComboBoxModel();
+        this.fornecedorModel.setSelectedItem(pedido.getFornecedorPedido());
+        this.produtoPedidoModel = new ProdutoPedidoTableModel(pedido.getProdutosPedido());
+        initComponents();
+        this.jTextField1.setText("R$ " + 
+            this.produtoPedidoModel.getModel().stream().map((ProdutoPedido item) -> {
+                return item.getQuantidade() * item.getProduto().getPrecoProduto();
+            }).reduce(0f, (Float acc, Float item) -> {
+                acc += item;
+                return acc;
+            })
+        );
+        this.jComboBox2.setEnabled(false);
+        this.jComboBox3.setEnabled(false);
+        this.jButton1.setEnabled(false);
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,6 +193,14 @@ public class TelaNovoPedido extends javax.swing.JInternalFrame {
             produtoPedido.setProduto((Produto) this.produtoModel.getSelectedItem());
             produtoPedido.setQuantidade(1f);
             this.produtoPedidoModel.addProdutoPedido(produtoPedido);
+            this.jTextField1.setText("R$ " + 
+                this.produtoPedidoModel.getModel().stream().map((ProdutoPedido item) -> {
+                    return item.getQuantidade() * item.getProduto().getPrecoProduto();
+                }).reduce(0f, (Float acc, Float item) -> {
+                    acc += item;
+                    return acc;
+                })
+            );
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -178,6 +208,14 @@ public class TelaNovoPedido extends javax.swing.JInternalFrame {
         int selectedRow = this.jTable1.getSelectedRow();
         if (selectedRow >= 0) {
             this.produtoPedidoModel.removeProdutoPedido(this.produtoPedidoModel.getModel().get(selectedRow));
+            this.jTextField1.setText("R$ " + 
+                this.produtoPedidoModel.getModel().stream().map((ProdutoPedido item) -> {
+                    return item.getQuantidade() * item.getProduto().getPrecoProduto();
+                }).reduce(0f, (Float acc, Float item) -> {
+                    acc += item;
+                    return acc;
+                })
+            );
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
